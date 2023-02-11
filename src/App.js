@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+
 
 function App() {
+  const [counter, setValue] = useState(0);
+  const [keyword, setKeyword] = useState("");
+  const OnClick = () => setValue((prev) => prev + 1);
+  const OnChange = (event) => setKeyword(event.target.value);
+
+  useEffect(() => {
+    console.log("i run only once");
+  }, []);
+  useEffect(() => {
+    console.log("i run when keyword change");
+  }, [keyword]);
+  useEffect(() => {
+    console.log("i run when counter change");
+  }, [counter]);
+  useEffect(() => {
+    console.log("i run when keyword & counter change");
+  }, [keyword, counter]);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input
+      value={keyword}
+      onChange={OnChange}
+      type="text"
+      placeholder="Search here"
+      />
+      <h1>{counter}</h1>
+      <button onClick={OnClick}>Click me</button>
     </div>
   );
 }
